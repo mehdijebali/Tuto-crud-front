@@ -42,5 +42,8 @@ This is the application architecture we will build:
 - Angular Client sends HTTP Requests and retrieve HTTP Responses using axios, shows data on the components. We also use Angular Router for navigating to pages.
 
 ## Run the Angular 10 App
-You can run this App with command: `ng serve --port 8081`.
+You can run this App with command: 
+```bash
+ng serve --port 8081
+```
 If the process is successful, open Browser with Url: [http://localhost:8081/](http://localhost:8081/) and check it.
