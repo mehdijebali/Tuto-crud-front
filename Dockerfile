@@ -12,6 +12,8 @@ COPY karma.conf.js ./
 COPY *.json ./
 COPY ./e2e /app/e2e
 COPY ./src /app/src
-RUN npm run build
+RUN npm run build --prod
 
-CMD ["node","dist/src/main.ts"]
+EXPOSE 4200
+
+CMD ["npm", "start"]
