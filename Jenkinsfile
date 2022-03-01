@@ -4,16 +4,20 @@ pipeline {
             stage('Initialization') {
                   steps {
                         echo '**** Starting Pipeline Job ****'
+                        
+
                   }
             }
             stage('Install Dependencies') {
                   steps {
-                        echo '**** Build jar file ****'
+                        echo '**** Install Dependencies ****'
+                        sh 'npm install'
                   }
             }
             stage('Build js file') {
                   steps {
                         echo '**** Build js file ****'
+                        sh 'npm run build'
                   }
             }
             stage('Build Docker Image') {
