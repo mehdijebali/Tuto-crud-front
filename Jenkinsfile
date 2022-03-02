@@ -21,10 +21,10 @@ pipeline {
                         sh 'npm run build'
                   }
             }
-            stage('Build Docker Image') {
-                  steps {
-                        echo '**** Build Docker Image ****'
-                  }
-            }
+            // stage('Build Docker Image') {
+                  // steps {
+                        // echo '**** Build Docker Image ****'
+                  // }
+            // }
       }
 }
