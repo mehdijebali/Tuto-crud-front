@@ -12,7 +12,7 @@ COPY karma.conf.js ./
 COPY *.json ./
 COPY ./e2e /app/e2e
 COPY ./src /app/src
-RUN npm run build --prod
+#RUN npm run build --prod
 
 EXPOSE 4200
 
