@@ -54,7 +54,7 @@ pipeline {
             stage('Deploy to k8s') {
                   steps {
                         echo '**** Deploy Application ****'
-                        sh 'git clone https://github.com/mehdijebali/Infrastructure-Tuto-crud.git'
+                        // sh 'git clone https://github.com/mehdijebali/Infrastructure-Tuto-crud.git'
                         script {
                               kubernetesDeploy (configs: "database-configmap.yml", kubeconfigId: "k8s")
                         }
