@@ -13,19 +13,19 @@ pipeline {
 
                   }
             }
-            // stage('Code Quality Check via SonarQube') {
-                  // steps {
-                        // script {
-                        // def scannerHome = tool 'sonarqube';
-                              // withSonarQubeEnv("sonarqube") {
-                              // sh "${tool("sonarqube")}/bin/sonar-scanner \
-                              // -Dsonar.projectKey=Frontend \
-                              // -Dsonar.sources=. \
-                              // -Dsonar.host.url=http://localhost:9000"
-                              // }
-                        // }                  
-                  // }
-            // }
+            stage('Code Quality Check via SonarQube') {
+                  steps {
+                        script {
+                        def scannerHome = tool 'sonarqube';
+                              withSonarQubeEnv("sonarqube") {
+                              sh "${tool("sonarqube")}/bin/sonar-scanner \
+                              -Dsonar.projectKey=Frontend \
+                              -Dsonar.sources=. \
+                              -Dsonar.host.url=https://sonarqube.projectcloud.click/"
+                              }
+                        }                  
+                  }
+            }
             stage('Install Dependencies') {
                   steps {
                         echo '**** Install Dependencies ****'
