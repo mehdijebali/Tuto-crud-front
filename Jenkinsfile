@@ -13,19 +13,19 @@ pipeline {
 
                   }
             }
-            stage('Code Quality Check via SonarQube') {
-                  steps {
-                        script {
-                        def scannerHome = tool 'sonarqube';
-                              withSonarQubeEnv("sonarqube") {
-                              sh "${tool("sonarqube")}/bin/sonar-scanner \
-                              -Dsonar.projectKey=Frontend \
-                              -Dsonar.sources=. \
-                              -Dsonar.host.url=http://localhost:9000"
-                              }
-                        }                  
-                  }
-            }
+            // stage('Code Quality Check via SonarQube') {
+                  // steps {
+                        // script {
+                        // def scannerHome = tool 'sonarqube';
+                              // withSonarQubeEnv("sonarqube") {
+                              // sh "${tool("sonarqube")}/bin/sonar-scanner \
+                              // -Dsonar.projectKey=Frontend \
+                              // -Dsonar.sources=. \
+                              // -Dsonar.host.url=http://localhost:9000"
+                              // }
+                        // }                  
+                  // }
+            // }
             stage('Install Dependencies') {
                   steps {
                         echo '**** Install Dependencies ****'
@@ -40,7 +40,7 @@ pipeline {
             }
             stage('Release Docker Image') {
                   environment {
-                        registryCredential = 'dockerhub'
+                        registryCredential = 'docker_mehdi'
                   }
                   steps {
                         echo '**** Build Docker Image ****'
@@ -54,7 +54,7 @@ pipeline {
             stage('Deploy to k8s') {
                   steps {
                         echo '**** Deploy Application ****'
-                        withCredentials([ string(credentialsId: 'k8s', variable: 'api_token') ]) { sh 'kubectl --token $api_token --server https://192.168.49.2:8443/ --insecure-skip-tls-verify=true apply -f ./K8s '}
+                        withCredentials([ string(credentialsId: 'k8s_mehdi', variable: 'api_token') ]) { sh 'kubectl --token $api_token --server https://192.168.49.2:8443/ --insecure-skip-tls-verify=true apply -f ./K8s '}
                   }
             }
       }
