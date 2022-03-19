@@ -21,6 +21,8 @@ pipeline {
                               sh "${tool("sonarqube")}/bin/sonar-scanner \
                               -Dsonar.projectKey=Frontend \
                               -Dsonar.sources=. \
+                              -Dsonar.login=admin \
+                              -Dsonar.password=admin \
                               -Dsonar.host.url=https://sonarqube.projectcloud.click/"
                               }
                         }                  
