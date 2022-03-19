@@ -1,4 +1,8 @@
 pipeline {
+      environment {
+            dockerimagename = "mehdijebali/crud-front"
+            dockerImage = ""
+      }
       agent any
       tools {nodejs "node12"}
       stages {
@@ -34,10 +38,27 @@ pipeline {
                         sh 'npm run build'
                   }
             }
-            // stage('Build Docker Image') {
-                  // steps {
-                        // echo '**** Build Docker Image ****'
-                  // }
-            // }
+            stage('Release Docker Image') {
+                  environment {
+                        registryCredential = 'dockerhub'
+                  }
+                  steps {
+                        echo '**** Build Docker Image ****'
+                        script{
+                              dockerImage = docker.build dockerimagename
+                              docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) 
+                              {dockerImage.push("latest")}
+                        }
+                  }
+            }
+            stage('Deploy to k8s') {
+                  steps {
+                        echo '**** Deploy Application ****'
+                        sh 'git clone https://github.com/mehdijebali/Infrastructure-Tuto-crud.git'
+                        script {
+                              kubernetesDeploy (configs: "database-configmap.yml", kubeconfigId: "k8s")
+                        }
+                  }
+            }
       }
 }
