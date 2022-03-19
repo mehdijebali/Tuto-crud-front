@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: front-deployment
-        image: mehdijebali/crud-front:1.5.4
+        image: mehdijebali/crud-front:latest
         ports:
           - name: http-front
             containerPort: 80
