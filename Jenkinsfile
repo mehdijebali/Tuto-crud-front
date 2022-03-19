@@ -16,8 +16,8 @@ pipeline {
             stage('Code Quality Check via SonarQube') {
                   steps {
                         script {
-                        def scannerHome = tool 'sonarqube';
-                              withSonarQubeEnv("sonarqube") {
+                        def scannerHome = tool 'sonarqube-scanner';
+                              withSonarQubeEnv("sonarQube") {
                               sh "${tool("sonarqube")}/bin/sonar-scanner \
                               -Dsonar.projectKey=Frontend \
                               -Dsonar.sources=. \
