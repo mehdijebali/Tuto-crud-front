@@ -54,10 +54,7 @@ pipeline {
             stage('Deploy to k8s') {
                   steps {
                         echo '**** Deploy Application ****'
-                        // sh 'git clone https://github.com/mehdijebali/Infrastructure-Tuto-crud.git'
-                        script {
-                              kubernetesDeploy (configs: "database-configmap.yml", kubeconfigId: "k8s")
-                        }
+                        withCredentials([ string(credentialsId: 'k8s', variable: 'api_token') ]) { sh 'kubectl --token $api_token --server https://192.168.49.2:8443/ --insecure-skip-tls-verify=true apply -f ./K8s '}
                   }
             }
       }
