@@ -1,2 +1,9 @@
-FROM nginx:alpine
-COPY /dist/Angular11Crud usr/share/nginx/html
+FROM node:20-alpine as builder
+WORKDIR /app
+COPY package.json ./
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN NODE_OPTIONS=--openssl-legacy-provider npm run build -- --output-path=./dist/browser --configuration=production
+
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist/browser usr/share/nginx/html
