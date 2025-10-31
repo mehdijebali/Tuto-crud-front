@@ -31,7 +31,18 @@ spec:
           
   # --- EGRESS RULES ---
   egress:
-    # 1. Allow outbound traffic only to the Backend Pods on port 8080
+     # 1. Allow DNS queries (UDP/TCP 53) to CoreDNS
+    - to:
+        - namespaceSelector: {}  # Allow DNS in kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # 2. Allow outbound traffic only to the Backend Pods on port 8080
     - to:
         - podSelector:
             matchLabels:
